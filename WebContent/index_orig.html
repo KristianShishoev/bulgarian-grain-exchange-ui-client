@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core">
+    
+  <h:head>
+    <title>Bulgarian grain exchange</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+    
+    <script>
+      var part1 = angular.module("part1", []);
+      part1.controller("RealtimeCtrl", function($scope, $http, $timeout) {
+        $scope.news = [];
+        
+        $scope.addNews = function() {
+          $http.post("rest/admin/insertNews", $scope.news);
+        }
+        
+        $scope.getNews = function() {
+          $http.get("rest/news/findAll")
+            .success(function(data) {
+              $scope.news = data;
+            });
+        }
+
+        $scope.refresh = function() {
+        	$scope.getNews();
+        }
+        
+      });
+      
+    </script>
+  </h:head>
+    
+  <h:body>
+    <div ng-app="part1" ng-controller="RealtimeCtrl" class="container">
+      <h1>Bulgarian grain exchange</h1>
+      <h2>Add news</h2>
+      <h:form>
+        <label for="newsField">Add news</label>
+        <input type="text" id="newsField" class="form-control" ng-model="news"/>
+        <button type="button" ng-click="addNews()" class="btn btn-success">Add news</button>
+        <button type="button" ng-click="refresh()" class="btn btn-default">Refresh</button>
+      </h:form>
+      
+      <h2>Listing</h2>
+      <ul class="list-group">
+        <li ng-repeat="curNews in news" class="list-group-item">
+          {{curNews.title}} {{curNews.content}} {{curNews.category}}
+        </li>
+      </ul> 
+    </div>
+  </h:body>    
+</html>
