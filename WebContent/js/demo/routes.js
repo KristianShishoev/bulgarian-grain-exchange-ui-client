@@ -53,9 +53,16 @@ angular
       label: 'Cards'
     }
   })
-  .state('app.components.forms', {
-    url: '/forms',
-    templateUrl: 'views/components/forms.html',
+  .state('app.components.user', {
+    url: '/insert/user',
+    templateUrl: 'views/components/user.html',
+    ncyBreadcrumb: {
+      label: 'Forms'
+    }
+  })
+  .state('app.components.news', {
+    url: '/insert/news',
+    templateUrl: 'views/components/news.html',
     ncyBreadcrumb: {
       label: 'Forms'
     }
@@ -67,9 +74,16 @@ angular
       label: 'Switches'
     }
   })
-  .state('app.components.tables', {
-    url: '/tables',
-    templateUrl: 'views/components/tables.html',
+  .state('app.components.viewNews', {
+    url: '/view/news',
+    templateUrl: 'views/components/newsTable.html',
+    ncyBreadcrumb: {
+      label: 'Tables'
+    }
+  })
+  .state('app.components.viewUsers', {
+    url: '/view/users',
+    templateUrl: 'views/components/userTable.html',
     ncyBreadcrumb: {
       label: 'Tables'
     }
