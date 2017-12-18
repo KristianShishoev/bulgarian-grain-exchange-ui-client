@@ -5,32 +5,32 @@
                     <strong>Basic Form</strong>Elements
                 </div>
                 <div class="card-block">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <form ng-submit="submit()" ng-controller="insertNewsCtrl" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Title</label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Title">
+                                <input type="text" id="text-input" ng-model="title" name="title" class="form-control" placeholder="Title">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Author</label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Author">
+                                <input type="text" id="text-input" ng-model="author" name="author" class="form-control" placeholder="Author">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="textarea-input">Content</label>
                             <div class="col-md-9">
-                                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content"></textarea>
+                                <textarea id="textarea-input" name="content" ng-model="content" rows="9" class="form-control" placeholder="Content"></textarea>
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="select">Category</label>
                             <div class="col-md-9">
-                                <select id="select" name="select" class="form-control">
+                                <select id="select" name="category" ng-model="category" class="form-control">
                                     <option value="0">GRAIN</option>
                                     <option value="1">PRICES</option>
                                 </select>
@@ -40,14 +40,17 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="file-multiple-input">Multiple File input</label>
                             <div class="col-md-9">
-                                <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+                                <input type="file" id="file-multiple-input" ng-model="images" name="images" multiple>
                             </div>
                         </div>
+                        
+                        <input type="submit" ng-click="submit" value="Submit" />
+                        
                     </form>
                 </div>
-                <div class="card-footer">
+                <!-- <div class="card-footer">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                </div>
+                </div> -->
             </div>
         </div>
         <!--/.col-->

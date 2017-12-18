@@ -1,5 +1,3 @@
-
-
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -7,54 +5,54 @@
                     <strong>Basic Form</strong>Elements
                 </div>
                 <div class="card-block">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <form ng-submit="submit()" ng-controller="insertUserCtrl" enctype="multipart/form-data" class="form-horizontal">
                     
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Username</label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Username">
+                                <input type="text" ng-model="username" class="form-control" placeholder="Username">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Email</label>
                             <div class="col-md-9">
-                                <input type="email" id="email-input" name="email-input" class="form-control" placeholder="Email">
+                                <input type="email" ng-model="email" class="form-control" placeholder="Email">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="password-input">Password</label>
                             <div class="col-md-9">
-                                <input type="password" id="password-input" name="password-input" class="form-control" placeholder="Password">
+                                <input type="password" ng-model="password" class="form-control" placeholder="Password">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">First name</label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="first name">
+                                <input type="text" ng-model="firstname" class="form-control" placeholder="first name">
                             </div>
                         </div>
                         
                          <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Last name</label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="last name">
+                                <input type="text" ng-model="lastname" class="form-control" placeholder="last name">
                             </div>
                         </div>
                         
                          <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Phone</label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="phone">
+                                <input type="text" ng-model="phone" class="form-control" placeholder="phone">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="select">Select role</label>
                             <div class="col-md-9">
-                                <select id="select" name="select" class="form-control">
+                                <select id="select" ng-model="role" class="form-control">
                                     <option value="0">ADMIN</option>
                                     <option value="1">TRADER</option>
                                     <option value="2">TRANSPORTER</option>
@@ -65,15 +63,16 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="file-input">Avatar</label>
                             <div class="col-md-9">
-                                <input type="file" id="file-input" name="file-input">
+                                <input type="file" ng-model="avatar">
                             </div>
                         </div>
                         
+                        <input type="submit" ng-click="submit" value="Submit" />
                     </form>
                 </div>
-                <div class="card-footer">
+               <!--  <div class="card-footer">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                </div>
+                </div> -->
             </div>
         </div>
         <!--/.col-->

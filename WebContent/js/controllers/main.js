@@ -11,9 +11,11 @@ angular
 .controller('barChartCtrl', barChartCtrl)
 .controller('horizontalBarsCtrl', horizontalBarsCtrl)
 .controller('horizontalBarsType2Ctrl', horizontalBarsType2Ctrl)
-.controller('usersTableCtrl', usersTableCtrl);
+.controller('usersTableCtrl', usersTableCtrl)
+.controller('insertNewsCtrl', insertNewsCtrl)
+.controller('insertUserCtrl', insertUserCtrl);
 
-//convert Hex to RGBA
+// convert Hex to RGBA
 function convertHex(hex,opacity){
   hex = hex.replace('#','');
   r = parseInt(hex.substring(0,2), 16);
@@ -23,6 +25,79 @@ function convertHex(hex,opacity){
   result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
   return result;
 }
+
+insertNewsCtrl.$inject = ['$scope', '$http', '$window'];
+function insertNewsCtrl($scope, $http, $window){
+	
+	$scope.submit = function(){
+		
+		var result = {
+				author: $scope.author,
+				content: $scope.content,
+				title: $scope.title,
+				category: $scope.category,
+				images: $scope.images
+			}
+				
+		var req = {
+				 method: 'POST',
+				 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/admin/insertNews',
+				 headers: {
+				   'Content-Type': 'application/json'
+				 },
+				 data: result
+			}
+			
+		$http(req).then(function()
+			{ 
+				$window.location.href = '#!/dashboard';
+			},
+			function()
+			{
+				alert("error"); 
+			} 
+		);
+	};
+}
+
+insertUserCtrl.$inject = ['$scope', '$http', '$window']
+function insertUserCtrl ($scope, $http, $window){
+	
+	$scope.submit = function(){
+			
+			var result = {
+					userName: $scope.username,
+					email: $scope.email,
+					password: $scope.password,
+					firstName: $scope.firstname,
+					lastName: $scope.lastname,
+					phone: $scope.phone,
+					role: $scope.role,
+					avatar: $scope.avatar
+				}
+					
+			var req = {
+					 method: 'POST',
+					 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/register',
+					 headers: {
+					   'Content-Type': 'application/json'
+					 },
+					 data: result
+				}
+			
+			$http(req).then(
+				function()
+				{ 
+					$window.location.href = '#!/dashboard';
+				},
+				function()
+				{
+					alert("error"); 
+				} 
+			);
+		};
+}
+
 
 cardChartCtrl1.$inject = ['$scope'];
 function cardChartCtrl1($scope) {
@@ -284,9 +359,9 @@ function dateRangeCtrl($scope) {
     }
   };
 
-  //Watch for date changes
+  // Watch for date changes
   $scope.$watch('date', function(newDate) {
-    //console.log('New date set: ', newDate);
+    // console.log('New date set: ', newDate);
   }, false);
 
   function gd(year, month, day) {
