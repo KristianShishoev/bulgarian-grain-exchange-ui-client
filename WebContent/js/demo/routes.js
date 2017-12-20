@@ -76,7 +76,7 @@ angular
   })
   .state('app.components.viewNews', {
     url: '/view/news',
-    templateUrl: 'views/components/n ewsTable.html',
+    templateUrl: 'views/components/newsTable.html',
     ncyBreadcrumb: {
       label: 'Tables'
     }

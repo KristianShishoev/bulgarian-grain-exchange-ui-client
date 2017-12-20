@@ -9,15 +9,22 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Author</th>
-                                <th>Category</th>
                                 <th>Title</th>
                                 <th>Content</th>
+                                <th>Author</th>
+                                <th>Category</th>
                                 <th>Views</th>
                             </tr>
                         </thead>
-                        <tbody>
-                           
+                        <tbody ng-controller="newsTableCtrl">
+                        
+                        <tr ng-repeat="singleNews in news">
+                                <td>{{singleNews.title}}</td>
+                                <td>{{singleNews.content}}</td>
+                                <td>{{singleNews.author}}</td>
+                                <td>{{singleNews.category}}</td>
+                                <td>{{singleNews.views}}</td>
+                            </tr>
                         </tbody>
                     </table>
                   

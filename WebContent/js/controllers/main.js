@@ -13,7 +13,8 @@ angular
 .controller('horizontalBarsType2Ctrl', horizontalBarsType2Ctrl)
 .controller('usersTableCtrl', usersTableCtrl)
 .controller('insertNewsCtrl', insertNewsCtrl)
-.controller('insertUserCtrl', insertUserCtrl);
+.controller('insertUserCtrl', insertUserCtrl)
+.controller('newsTableCtrl', newsTableCtrl);
 
 // convert Hex to RGBA
 function convertHex(hex,opacity){
@@ -24,6 +25,52 @@ function convertHex(hex,opacity){
 
   result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
   return result;
+}
+
+newsTableCtrl.$inject = ['$scope', '$http']
+function newsTableCtrl($scope, $http){
+	
+	var req = {
+			 method: 'GET',
+			 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/news/findAll',
+			 headers: {
+			   'Content-Type': 'application/json'
+			 }
+	}
+		
+	$http(req).then(
+		function(response)
+		{
+			$scope.news = response.data;
+		},
+		function()
+		{
+			$scope.news = [];
+		} 
+	);
+}
+
+usersTableCtrl.$inject = ['$scope', '$http'];
+function usersTableCtrl($scope, $http) {
+	
+	var req = {
+			 method: 'GET',
+			 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/admin/findAllUsers',
+			 headers: {
+			   'Content-Type': 'application/json'
+			 }
+	}
+		
+	$http(req).then(
+		function(response)
+		{
+			$scope.users = response.data;
+		},
+		function()
+		{
+			$scope.users = [];
+		} 
+	);
 }
 
 insertNewsCtrl.$inject = ['$scope', '$http', '$window'];
@@ -97,7 +144,6 @@ function insertUserCtrl ($scope, $http, $window){
 			);
 		};
 }
-
 
 cardChartCtrl1.$inject = ['$scope'];
 function cardChartCtrl1($scope) {
@@ -541,97 +587,6 @@ function horizontalBarsType2Ctrl($scope) {
       percent: 8
     }
   ];
-}
-
-usersTableCtrl.$inject = ['$scope', '$timeout'];
-function usersTableCtrl($scope, $timeout) {
-
-  $scope.users = [
-    {
-      avatar: '1.jpg',
-      status: 'active',
-      name: 'Yiorgos Avraamu',
-      new: true,
-      registered: 'Jan 1, 2015',
-      country: 'USA',
-      flag: 'USA.png',
-      usage: '50',
-      period: 'Jun 11, 2015 - Jul 10, 2015',
-      payment: 'mastercard',
-      activity: '10 sec ago',
-      satisfaction: '48'
-    },
-    {
-      avatar: '2.jpg',
-      status: 'busy',
-      name: 'Avram Tarasios',
-      new: false,
-      registered: 'Jan 1, 2015',
-      country: 'Brazil',
-      flag: 'Brazil.png',
-      usage: '10',
-      period: 'Jun 11, 2015 - Jul 10, 2015',
-      payment: 'visa',
-      activity: '5 minutes ago',
-      satisfaction: '61'
-    },
-    {
-      avatar: '3.jpg',
-      status: 'away',
-      name: 'Quintin Ed',
-      new: true,
-      registered: 'Jan 1, 2015',
-      country: 'India',
-      flag: 'India.png',
-      usage: '74',
-      period: 'Jun 11, 2015 - Jul 10, 2015',
-      payment: 'stripe',
-      activity: '1 hour ago',
-      satisfaction: '33'
-    },
-    {
-      avatar: '4.jpg',
-      status: 'offline',
-      name: 'Enéas Kwadwo',
-      new: true,
-      registered: 'Jan 1, 2015',
-      country: 'France',
-      flag: 'France.png',
-      usage: '98',
-      period: 'Jun 11, 2015 - Jul 10, 2015',
-      payment: 'paypal',
-      activity: 'Last month',
-      satisfaction: '23'
-    },
-    {
-      avatar: '5.jpg',
-      status: 'active',
-      name: 'Agapetus Tadeáš',
-      new: true,
-      registered: 'Jan 1, 2015',
-      country: 'Spain',
-      flag: 'Spain.png',
-      usage: '22',
-      period: 'Jun 11, 2015 - Jul 10, 2015',
-      payment: 'google',
-      activity: 'Last week',
-      satisfaction: '78'
-    },
-    {
-      avatar: '6.jpg',
-      status: 'busy',
-      name: 'Friderik Dávid',
-      new: true,
-      registered: 'Jan 1, 2015',
-      country: 'Poland',
-      flag: 'Poland.png',
-      usage: '43',
-      period: 'Jun 11, 2015 - Jul 10, 2015',
-      payment: 'amex',
-      activity: 'Yesterday',
-      satisfaction: '11'
-    }
-  ]
 }
 
 clientsTableCtrl.$inject = ['$scope', '$timeout'];

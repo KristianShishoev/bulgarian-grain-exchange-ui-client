@@ -10,15 +10,25 @@
                         <thead>
                             <tr>
                                 <th>Username</th>
-                                <th>Date registered</th>
+                                <th>Email</th>
                                 <th>Role</th>
-                                <th>Status</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Phone</th>
                             </tr>
                         </thead>
                         
-                        <tbody>
-                  
-                            
+                        <tbody ng-controller="usersTableCtrl">
+                        
+                             <tr ng-repeat="user in users">
+                                <td>{{user.userName}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.role}}</td>
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.phone}}</td>
+                            </tr>
+
                         </tbody>
                     </table>
                     
