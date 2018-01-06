@@ -5,7 +5,7 @@
                 <div class="card-header">
                     Users
                 </div>
-                <div class="card-block">
+                <div class="card-block" >
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
@@ -18,7 +18,8 @@
                             </tr>
                         </thead>
                         
-                        <tbody ng-controller="usersTableCtrl">
+                        <tbody ng-controller="usersTableCtrl" >
+                        <!-- ng-controller="usersTableCtrl" --> 
                         
                              <tr ng-repeat="user in users">
                                 <td>{{user.userName}}</td>
