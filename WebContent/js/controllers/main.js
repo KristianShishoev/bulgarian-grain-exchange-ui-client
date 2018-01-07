@@ -54,7 +54,7 @@ function newsTableCtrl($scope, $http, $window){
 		},
 		function(response)
 		{
-			if(response.status === 401){
+			if(response.status === 401 || response.status === 403){
 				$window.location.href = '?#!/login';
 			}
 			$scope.news = [];
@@ -66,7 +66,7 @@ usersTableCtrl.$inject = ['$scope', '$http', '$window'];
 function usersTableCtrl($scope, $http, $window) {
 	
 	var req = {
-			 method: 'POST',
+			 method: 'GET',
 			 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/admin/findAllUsers',
 	}
 		
@@ -77,7 +77,7 @@ function usersTableCtrl($scope, $http, $window) {
 		},
 		function(response)
 		{
-			if(response.status === 401){
+			if(response.status === 401 || response.status === 403){
 				$window.location.href = '?#!/login';
 			}
 			$scope.users = [];
@@ -114,7 +114,7 @@ function insertNewsCtrl($scope, $http, $window){
 			},
 			function(response)
 			{
-				if(response.status === 401){
+				if(response.status === 401 || response.status === 403){
 					$window.location.href = '?#!/login';
 				}
 			} 
@@ -136,7 +136,7 @@ function insertUserCtrl ($scope, $http, $window){
 					phone: $scope.phone,
 					role: $scope.role,
 					avatar: $scope.avatar
-				}
+			}
 					
 			var req = {
 					 method: 'POST',
@@ -145,7 +145,7 @@ function insertUserCtrl ($scope, $http, $window){
 					   'Content-Type': 'application/json'
 					 },
 					 data: result
-				}
+			}
 			
 			$http(req).then(
 				function()
@@ -154,7 +154,7 @@ function insertUserCtrl ($scope, $http, $window){
 				},
 				function(response)
 				{
-					if(response.status === 401){
+					if(response.status === 401 || response.status === 403){
 						$window.location.href = '?#!/login';
 					}
 				} 
