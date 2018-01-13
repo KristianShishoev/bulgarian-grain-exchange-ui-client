@@ -1,39 +1,77 @@
-//main.js
 angular
 .module('app')
 .controller('usersTableCtrl', usersTableCtrl)
 .controller('insertNewsCtrl', insertNewsCtrl)
 .controller('insertUserCtrl', insertUserCtrl)
 .controller('newsTableCtrl', newsTableCtrl)
-.controller('loginCtrl', loginCtrl);
+.controller('authentication', authentication);
 
-loginCtrl.$inject = ['$scope', '$http', '$window']
-function loginCtrl($scope, $http, $window){
+
+authentication.$inject = [ '$scope', '$http', '$window' ]
+function authentication($scope, $http, $window){
 	
-	$scope.submit = function(){
+	$scope.isAuthenticated = function() {
 		
-	var req = {
-			 method: 'POST',
-			 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/login',
-			 headers: {
-			   'Content-Type': 'application/x-www-form-urlencoded'
-			 },
-			 data: $.param({email : $scope.email, password: $scope.password})
+		if(localStorage.getItem('isAuthenticate') == null){
+			return false;
+		}
+		else {
+			return localStorage.getItem('isAuthenticate');
+		}
+	};
+	
+	$scope.redirectLogin = function() {
+		
+		$window.location.href = '?#!/login';
 	}
 	
-	$http(req).then(
-			function(response)
-			{
-				localStorage.setItem('id_token', response.headers('Authorization'));
-				$http.defaults.headers.common['Authorization'] = response.headers('Authorization');
-				$window.location.href = '?#!/dashboard';
-			},
-			function()
-			{
-				$http.defaults.headers.common['Authorization'] = "random";
-			} 
-		);
-	};
+	$scope.logout = function() {
+		
+		var req = {
+				 method: 'POST',
+				 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/logout',
+		}
+		
+		$http(req).then(
+				function(response)
+				{
+					localStorage.setItem('id_token', "");
+					$http.defaults.headers.common['Authorization'] = "";
+					localStorage.setItem('isAuthenticate', false);
+					$window.location.href = '?#!/dashboard';
+				},
+				function()
+				{
+					
+				} 
+			);
+	}
+	
+	$scope.login = function(){
+		
+		var req = {
+				 method: 'POST',
+				 url: 'https://localhost:8443/bulgarian-grain-exchange/rest/login',
+				 headers: {
+				   'Content-Type': 'application/x-www-form-urlencoded'
+				 },
+				 data: $.param({email : $scope.email, password: $scope.password})
+		}
+		
+		$http(req).then(
+				function(response)
+				{
+					localStorage.setItem('id_token', response.headers('Authorization'));
+					localStorage.setItem('isAuthenticate', true);
+					$http.defaults.headers.common['Authorization'] = response.headers('Authorization');
+					$window.location.href = '?#!/dashboard';
+				},
+				function()
+				{
+					
+				} 
+			);
+		};
 }
 
 newsTableCtrl.$inject = ['$scope', '$http', '$window']
@@ -55,6 +93,7 @@ function newsTableCtrl($scope, $http, $window){
 		function(response)
 		{
 			if(response.status === 401 || response.status === 403){
+				localStorage.setItem('isAuthenticate', false);
 				$window.location.href = '?#!/login';
 			}
 			$scope.news = [];
@@ -78,6 +117,7 @@ function usersTableCtrl($scope, $http, $window) {
 		function(response)
 		{
 			if(response.status === 401 || response.status === 403){
+				localStorage.setItem('isAuthenticate', false);
 				$window.location.href = '?#!/login';
 			}
 			$scope.users = [];
@@ -115,6 +155,7 @@ function insertNewsCtrl($scope, $http, $window){
 			function(response)
 			{
 				if(response.status === 401 || response.status === 403){
+					localStorage.setItem('isAuthenticate', false);
 					$window.location.href = '?#!/login';
 				}
 			} 
@@ -155,6 +196,7 @@ function insertUserCtrl ($scope, $http, $window){
 				function(response)
 				{
 					if(response.status === 401 || response.status === 403){
+						localStorage.setItem('isAuthenticate', false);
 						$window.location.href = '?#!/login';
 					}
 				} 
